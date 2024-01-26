@@ -58,7 +58,7 @@ class server_interface:
         pass
     
     def MessageClient(self,client:connection,message:Message):
-        if client is not None and client.isConnnected():
+        if client !=  None and client.isConnnected():
             # print(f"[{client.GetID()}] has send ")
             self.SendTread = threading.Thread(target=client.Send , args=(message,))
             self.SendTread.start()
@@ -71,8 +71,8 @@ class server_interface:
     def MessageAllClients(self,message:Message,pIgnoreClient:Message):
         bInvalidClientExists = False
         for client in self.m_deqConnections:
-            if client is not None and client.isConnnected():
-                if client is not pIgnoreClient:
+            if client !=  None and client.isConnnected():
+                if client !=  pIgnoreClient:
                     self.SendTread = threading.Thread(target=client.Send , args=(message,))
                     self.SendTread.start()
             else:
@@ -87,7 +87,7 @@ class server_interface:
             
     def Update(self,nMaxMessages:int = -1):
         nMessageCount = 0
-        if nMaxMessages is -1 :
+        if nMaxMessages ==  -1 :
             nMaxMessages = sys.maxsize
         while nMessageCount < nMaxMessages and not self.m_qMessagesIn.empty():
             msg = self.m_qMessagesIn.pop_front()

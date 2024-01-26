@@ -11,7 +11,7 @@ class muxQueue:
 
     def front(self):
         self.Lock.acquire()
-        while len(self.Queue) is 0:
+        while len(self.Queue) == 0:
             self.Lock.release()
             self.Lock.acquire()
             
@@ -21,7 +21,7 @@ class muxQueue:
     
     def back(self):
         self.Lock.acquire()
-        while len(self.Queue) is 0:
+        while len(self.Queue) == 0:
             self.Lock.release()
             self.Lock.acquire()
         
@@ -31,7 +31,7 @@ class muxQueue:
     
     def pop_front(self):
         self.Lock.acquire()
-        while len(self.Queue) is 0:
+        while len(self.Queue) == 0:
             self.Lock.release()
             self.Lock.acquire()
         front = self.Queue[0]
@@ -41,7 +41,7 @@ class muxQueue:
 
     def pop_back(self):
         self.Lock.acquire()
-        while len(self.Queue) is 0:
+        while len(self.Queue) == 0:
             self.Lock.release()
             self.Lock.acquire()
         back = self.Queue[-1]
@@ -61,7 +61,7 @@ class muxQueue:
         
     def empty(self)->bool:
         self.Lock.acquire()
-        is_empty = len(self.Queue) is 0
+        is_empty = len(self.Queue) == 0
         self.Lock.release()
         return is_empty 
     

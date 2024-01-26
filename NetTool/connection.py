@@ -46,7 +46,7 @@ class connection:
             print(f"[{self.id}] Write Body Fail.")
             
     def __AddToIncomingMessageQueue(self,msg:Message):
-        if self.m_nOwnerType is owner.server:
+        if self.m_nOwnerType == owner.server:
             self.m_qMessagesIn.push_back((self,msg))
         else:
             self.m_qMessagesIn.push_back((None,msg))
@@ -88,7 +88,7 @@ class connection:
     
     def ConnectToClient(self,uid = 0):
         if self.m_nOwnerType == owner.server:
-            if self.socket._closed is False:
+            if self.socket._closed == False:
                 self.id = uid
                 self.ReadThread = threading.Thread(target=self.__ReadHeader ) 
                 self.ReadThread.start()

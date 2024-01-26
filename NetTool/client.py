@@ -15,7 +15,7 @@ class client_interface:
         pass
     
     def IsConnected(self) -> bool:
-        if self.m_connection is not None:
+        if self.m_connection != None:
             return self.m_connection.isConnnected()
         else:
             return False
@@ -41,3 +41,6 @@ class client_interface:
             
     def Incoming(self)->muxQueue:
         return self.m_qMessagesIn
+    
+    def getMessage(self)->Message:
+        return self.m_qMessagesIn.pop_front()

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="NetTool",  # 包的名称
-    version="0.1.0",    # 版本号
+    version="0.1.2",    # 版本号
     description="NetTool",  # 包的描述
     author="stamr",  # 作者名字
     author_email="stamrwl@163.com",  # 作者电子邮件
