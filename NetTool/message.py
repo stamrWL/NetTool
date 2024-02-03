@@ -63,14 +63,11 @@ class Message:
         self.header.BodySize = self.BodySize()
         
     def input_string(self,string : str):
-        if len(string)>11:
-            string = string[:11]
-
-        while len(string) < 12:
-            string = string + '\0'
-            
-        for ch in string:
-            self.input_bytearray(ctypes.c_char(ord(ch)))
+        string = string.encode('utf-8')
+        CtypeString = ctypes.create_string_buffer(string)
+        self.input_bytearray(CtypeString)
+        stringLen = ctypes.sizeof(CtypeString)
+        self.input_bytearray(ctypes.c_int32(stringLen))
 
     def output_fmt(self, fmt: str):
         # 将body队尾的二进制文件用fmt的格式进行读取，并删除
@@ -102,6 +99,22 @@ class Message:
         # Recalculate the message size
         self.header.BodySize = self.BodySize()
         
+        return unpacked_data
+    
+    def output_string(self):
+        stringLen = self.output_c_type(ctypes.c_int32).value
+        
+        i = len(self.body) - stringLen
+
+        # Unpack the data from the bytearray
+        unpacked_data = self.body[i:].decode('utf-8')
+        
+        # Shrink the bytearray to remove read bytes
+        self.body = self.body[:i]
+
+        # Recalculate the message size
+        self.header.BodySize = self.BodySize()
+
         return unpacked_data
     
     def pack_head(self):
