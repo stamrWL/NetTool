@@ -25,6 +25,7 @@ class client_interface:
             self.sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             self.sock.connect((host,port))
             self.m_connection = connection(self.sock,self.m_qMessagesIn,owner.client)
+            self.m_connection.ConnectToServer()
         except Exception as e:
             print(e)
             print("[Client] Exception")

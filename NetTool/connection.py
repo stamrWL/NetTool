@@ -94,6 +94,13 @@ class connection:
                 self.ReadThread.start()
             pass
         
+    def ConnectToServer(self):
+        if self.m_nOwnerType == owner.client:
+            if self.socket._closed == False:
+                self.ReadThread = threading.Thread(target=self.__ReadHeader ) 
+                self.ReadThread.start()
+        pass
+
     def Disconnect(self):
         self.socket.close()
         
