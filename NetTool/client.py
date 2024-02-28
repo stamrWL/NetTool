@@ -21,11 +21,10 @@ class client_interface:
             return False
     
     def Connect(self,host:str ,port:int):
-        sock = None
         try:
             self.sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             self.sock.connect((host,port))
-            self.m_connection = connection(sock,self.m_qMessagesIn,owner.client)
+            self.m_connection = connection(self.sock,self.m_qMessagesIn,owner.client)
         except Exception as e:
             print(e)
             print("[Client] Exception")
