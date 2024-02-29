@@ -2,6 +2,7 @@ import socket
 import sys
 import threading
 
+from time import sleep
 from .muxQueue import muxQueue
 from .NetworkEnum import *
 from .connection import connection
@@ -42,5 +43,9 @@ class client_interface:
     def Incoming(self)->muxQueue:
         return self.m_qMessagesIn
     
-    def getMessage(self)->Message:
-        return self.m_qMessagesIn.pop_front()
+    def getMessage(self,type:int = None)->Message:
+        while True:
+            front_msg = self.m_qMessagesIn.front()[0]
+            if type == None or front_msg.header.id == type:
+                return self.m_qMessagesIn.pop_front()
+            sleep(0.02)
