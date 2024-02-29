@@ -115,7 +115,7 @@ class Message:
         # Recalculate the message size
         self.header.BodySize = self.BodySize()
 
-        return unpacked_data
+        return unpacked_data.replace('\x00','')
     
     def pack_head(self):
         # 把头打包
